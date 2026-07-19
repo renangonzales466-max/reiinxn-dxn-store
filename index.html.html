@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reiinxn DXN Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f7f9fa;
+            color: #333;
+            padding-bottom: 90px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            padding: 20px 16px 16px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .store-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 13px;
+            opacity: 0.9;
+            font-style: italic;
+            margin-bottom: 14px;
+            font-weight: 300;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 36px 12px 14px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            pointer-events: none;
+        }
+
+        /* Membership Promo Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px solid #ffb74d;
+            border-radius: 12px;
+            margin: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+
+        .promo-banner h3 {
+            color: #e65100;
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-banner p {
+            color: #5d4037;
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 24px 16px 12px 16px;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Featured Grid styling */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 14px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #eaeaea;
+        }
+
+        .featured-img-container {
+            width: 100%;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            background: #fafafa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .featured-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .featured-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .featured-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            min-height: 36px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .featured-price {
+            font-size: 15px;
+            font-weight: 800;
+            color: #d32f2f;
+            margin-bottom: 8px;
+        }
+
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            background: white;
+            padding: 12px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 114px;
+            z-index: 99;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background-color: #f0f2f5;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-btn.active {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .product-list {
+            padding: 12px;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px 4px 12px 4px;
+            color: #222;
+            border-left: 4px solid #d32f2f;
+            padding-left: 8px;
+        }
+
+        .product-card {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            align-items: center;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #111;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: #d32f2f;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: #f0f2f5;
+            border-radius: 15px;
+            padding: 2px;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: white;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d32f2f;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .qty-val {
+            width: 32px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Contact Details Panel */
+        .contact-panel {
+            background: #ffffff;
+            border-top: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            padding: 20px 16px;
+            margin: 30px 0;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .contact-panel h4 {
+            color: #111;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .contact-item {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .contact-label {
+            font-weight: 700;
+            color: #666;
+            min-width: 110px;
+        }
+
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 16px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cart-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-count {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .order-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Steps Flow Setup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            color: #888;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Payment workflow adjustments */
+        .payment-box {
+            background: #f8f9fa;
+            border: 1px dashed #ccc;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0;
+            text-align: center;
+        }
+
+        .qr-display {
+            display: none;
+            margin: 12px auto;
+            max-width: 220px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 6px;
+            background: #fff;
+        }
+
+        .qr-display img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .submit-order-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .submit-order-btn:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .thank-you-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: white;
+            z-index: 3000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            color: #2e7d32;
+            margin-bottom: 16px;
+        }
+
+        .thank-you-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .thank-you-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .continue-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="store-name">Reiinxn DXN Store</div>
+        <div class="tagline">Authorized Wellness & Ganoderma Storefront</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-bar" placeholder="Search products..." oninput="filterProducts()">
+            <span class="search-icon">🔍</span>
+        </div>
+    </header>
+
+    <!-- Engaging Membership Conversion Banner -->
+    <div class="promo-banner">
+        <h3>Unlock 50% Lifetime Discount Instantly!</h3>
+        <p>Become a verified DXN Member to enjoy member pricing on all DXN products. Complete your checkout or send me a message to get started with your membership.</p>
+    </div>
+
+    <!-- Featured Hot Products Section -->
+    <div class="section-title"> Top Featured Products</div>
+    <div class="featured-grid">
+        <!-- Item 1 -->
+        <div class="featured-card">
+            <div class="featured-img-container">
+                <img src="image_412138.png" alt="DXN Lingzhi Coffee 3 in 1 10.5g">
+            </div>
+            <div class="featured-info">
+                <div class="featured-name">DXN Lingzhi Coffee 3 in 1 (10.5g)</div>
+                <div class="featured-price">₱433.00</div>
+                <div class="qty-controls" style="justify-content: space-between; width: 100%;">
+                    <button class="qty-btn" type="button" onclick="updateQty(50, -1)">-</button>
+                    <div class="qty-val" id="feat-qty-50">0</div>
+                    <button class="qty-btn" type="button" onclick="updateQty(50, 1)">+</button>
+                </div>
+            </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="featured-card">
+            <div class="featured-img-container">
+                <img src="image_4120dd.jpg" alt="DXN Lingzhi Coffee 3 in 1 Classic 20s">
+            </div>
+            <div class="featured-info">
+                <div class="featured-name">DXN Lingzhi Coffee 3 in 1 Classic 20s</div>
+                <div class="featured-price">₱713.00</div>
+                <div class="qty-controls" style="justify-content: space-between; width: 100%;">
+                    <button class="qty-btn" type="button" onclick="updateQty(51, -1)">-</button>
+                    <div class="qty-val" id="feat-qty-51">0</div>
+                    <button class="qty-btn" type="button" onclick="updateQty(51, 1)">+</button>
+                </div>
+            </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="featured-card">
+            <div class="featured-img-container">
+                <img src="image_412401.jpg" alt="DXN Cocozhi">
+            </div>
+            <div class="featured-info">
+                <div class="featured-name">DXN Cocozhi 20x32g</div>
+                <div class="featured-price">₱1,123.00</div>
+                <div class="qty-controls" style="justify-content: space-between; width: 100%;">
+                    <button class="qty-btn" type="button" onclick="updateQty(41, -1)">-</button>
+                    <div class="qty-val" id="feat-qty-41">0</div>
+                    <button class="qty-btn" type="button" onclick="updateQty(41, 1)">+</button>
+                </div>
+            </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="featured-card">
+            <div class="featured-img-container">
+                <img src="image_41247b.jpg" alt="DXN Spirulina capsule 90s">
+            </div>
+            <div class="featured-info">
+                <div class="featured-name">DXN Spirulina Capsule 90's</div>
+                <div class="featured-price">₱1,383.00</div>
+                <div class="qty-controls" style="justify-content: space-between; width: 100%;">
+                    <button class="qty-btn" type="button" onclick="updateQty(17, -1)">-</button>
+                    <div class="qty-val" id="feat-qty-17">0</div>
+                    <button class="qty-btn" type="button" onclick="updateQty(17, 1)">+</button>
+                </div>
+            </div>
+        </div>
+        <!-- Item 5 (Combined RG GL) -->
+        <div class="featured-card" style="grid-column: span 2;">
+            <div class="featured-img-container" style="height: 140px;">
+                <img src="image_4124f2.jpg" alt="DXN RG GL 90's Set">
+            </div>
+            <div class="featured-info">
+                <div class="featured-name" style="text-align: center;">DXN Reishi Gano (RG) 90's & Ganocelium (GL) 90's Set</div>
+                <div class="featured-price" style="text-align: center;">₱3,826.00</div>
+                <div style="display: flex; justify-content: center;">
+                    <div class="qty-controls" style="width: 160px; justify-content: space-between;">
+                        <button class="qty-btn" type="button" onclick="updateComboQty(-1)">-</button>
+                        <div class="qty-val" id="combo-qty-val">0</div>
+                        <button class="qty-btn" type="button" onclick="updateComboQty(1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title"> Browse All Items</div>
+
+    <div class="categories" id="categoryContainer">
+        <button class="cat-btn active" onclick="switchCategory('all')">All</button>
+        <button class="cat-btn" onclick="switchCategory('supplement')">Supplements</button>
+        <button class="cat-btn" onclick="switchCategory('beverage')">Beverages</button>
+        <button class="cat-btn" onclick="switchCategory('personal')">Personal Care</button>
+        <button class="cat-btn" onclick="switchCategory('skincare')">Skincare</button>
+        <button class="cat-btn" onclick="household()">Household</button>
+    </div>
+
+    <div class="product-list" id="productList"></div>
+
+    <!-- Contact Info Section -->
+    <div class="contact-panel">
+        <h4>Authorized Distributor Information</h4>
+        <div class="contact-item"><span class="contact-label">Proprietor:</span><span>Renan Gonzales</span></div>
+        <div class="contact-item"><span class="contact-label">Hotline:</span><span>+639215026229</span></div>
+        <div class="contact-item"><span class="contact-label">Hub Address:</span><span>E-17-9 Tropical Village san Francisco General Trias Cavite</span></div>
+    </div>
+
+    <div class="cart-bar">
+        <div class="cart-info">
+            <span class="cart-count" id="cartCount">0 items selected</span>
+            <span class="cart-total" id="cartTotal">₱0.00</span>
+        </div>
+        <button class="order-btn" onclick="openOrderModal()">
+            <span>Complete Order</span>
+        </button>
+    </div>
+
+    <!-- Integrated Checkout & Payment Form Modal -->
+    <div class="modal" id="orderModal" onclick="if(event.target==this) closeOrderModal()">
+        <div class="modal-content">
+            <div class="modal-title">
+                <span>Secure Checkout & Payment</span>
+                <span class="close-modal" onclick="closeOrderModal()">✕</span>
+            </div>
+            
+            <form id="orderForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" onsubmit="handleOrderSubmit(event)">
+                <!-- Target email parameter pointing directly to your inbox setup -->
+                <input type="hidden" name="email" value="rnangonzales@gmail.com">
+                <input type="hidden" name="subject" value="New Secure Payment Order - Reiinxn DXN Store">
+                <input type="hidden" name="from_name" value="Reiinxn Store Checkout">
+
+                <!-- Step 1: Customer Details -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="Customer Name" id="custName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" name="Phone Number" id="custPhone" placeholder="Enter your mobile number" required>
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <textarea name="Delivery Address" id="custAddress" rows="2" placeholder="Complete shipping address" required></textarea>
+                </div>
+                
+                <!-- Step 2: Payment Integration (Mandatory Before Completion) -->
+                <div style="margin-top: 18px; border-top: 1px solid #eee; padding-top: 14px;">
+                    <span style="font-size: 14px; font-weight: 700; color: #111; display: block; margin-bottom: 8px;">Select Payment Network</span>
+                    <div class="form-group">
+                        <select id="paymentMethod" name="Payment Mode" onchange="togglePaymentQR()" required>
+                            <option value="">-- Choose Secure Payment Option --</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Maya">Maya</option>
+                        </select>
+                    </div>
+
+                    <div class="payment-box" id="paymentInstructionBox">
+                        <p style="font-size: 12px; color: #666;">Please choose a payment option above to view the scan details and complete your settlement.</p>
+                        
+                        <!-- GCash QR Code Layout Container -->
+                        <div class="qr-display" id="gcashQR">
+                            <p style="font-size: 13px; font-weight:700; color:#1565c0; margin-bottom:6px;">Scan to Pay via GCash</p>
+                            <img src="image_427df5.png" alt="GCash QR Code">
+                        </div>
+
+                        <!-- Maya QR Code Layout Container -->
+                        <div class="qr-display" id="mayaQR">
+                            <p style="font-size: 13px; font-weight:700; color:#2e7d32; margin-bottom:6px;">Scan to Pay via Maya</p>
+                            <img src="image_419c5f.jpg" alt="Maya QR Code">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sender Account Name (Who sent the payment)</label>
+                        <input type="text" name="Payment Sender Name" id="paySender" placeholder="Enter sender's account name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Contact Reference Number</label>
+                        <input type="text" name="Payment Contact/Reference" id="payRef" placeholder="Enter payment mobile or Ref #" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Attach Proof of Payment (Screenshot Receipt)</label>
+                        <input type="file" name="Proof of Payment" accept="image/*" id="payFile" required>
+                    </div>
+                </div>
+
+                <input type="hidden" name="Ordered Items" id="hiddenOrderDetails">
+                <input type="hidden" name="Grand Total" id="hiddenGrandTotal">
+
+                <button type="submit" class="submit-order-btn">Verify Payment & Confirm Order</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="thank-you-screen" id="thankYouScreen">
+        <div class="success-icon">✓</div>
+        <div class="thank-you-title">Order Dispatched Successfully!</div>
+        <div class="thank-you-text">Thank you for ordering with Renan Gonzales! Your order and proof of payment data have been successfully sent over. Your package details are recorded to dispatch smoothly to your address.</div>
+        <button class="continue-btn" onclick="closeThankYouScreen()">Back to Store</button>
+    </div>
+
+    <script>
+        const products = [
+            // Health Food Supplement
+            { id: 1, name: "Andro-G 30 Capsule", category: "supplement", price: 638, desc: "Pure Andrographis paniculata capsules to naturally protect the liver and boost body defenses." },
+            { id: 2, name: "Andro-G 90 Capsule", category: "supplement", price: 1838, desc: "High-potency immune system support formula protecting respiratory functions and vital energy." },
+            { id: 3, name: "DXN Bee Pollen Tablet 120's", category: "supplement", price: 1273, desc: "Natural energy and vitality booster packed with essential enzymes, vitamins, and organic plant proteins." },
+            { id: 4, name: "DXN Black Cumin Plus Capsule 30's", category: "supplement", price: 848, desc: "Formulated with selected quality Nigella Sativa to optimize everyday metabolic defenses." },
+            { id: 5, name: "DXN Black Cumin Plus Capsule 90's", category: "supplement", price: 2278, desc: "Premium organic black seed extract designed to reinforce systemic immunity and overall cellular wellness." },
+            { id: 6, name: "DXN Cordyceps Tablet 120's", category: "supplement", price: 3848, desc: "Pure Cordyceps Sinensis providing remarkable physical endurance, respiratory capacity, and stamina." },
+            { id: 7, name: "DXN Gegen Plus Capsule 30's", category: "supplement", price: 763, desc: "Traditional botanical herbal blend formulated to alleviate muscle fatigue and heat stress." },
+            { id: 8, name: "DXN Gegen Plus Capsule 90's", category: "supplement", price: 2073, desc: "Restorative large-pack herbal compound engineered for internal heat balance and physical recovery." },
+            { id: 9, name: "DXN Hong T Powder 30g", category: "supplement", price: 1263, desc: "Fine premium medicinal red tea powder containing target elements for digestive wellness." },
+            { id: 10, name: "DXN Lions Mane Mushroom Powder 30g", category: "supplement", price: 1773, desc: "Promotes healthy neurological activity, sharp memory retention, and positive gut lining wellness." },
+            { id: 11, name: "DXN Lion's Mane Tablet 120's", category: "supplement", price: 2233, desc: "Advanced neuro-protective tablets supporting daily mental clarity, focus, and cognitive performance." },
+            { id: 12, name: "DXN Mycove G 400g", category: "supplement", price: 4663, desc: "High-fiber dietary powder mix optimizing gastrointestinal wellness, colon cleansing, and digestion." },
+            { id: 13, name: "DXN Pearl Powder 30g", category: "supplement", price: 1418, desc: "Pure high-grade pearl powder promoting radiant skin cellular layers and internal detoxification." },
+            { id: 14, name: "DXN Potenzhi 30's", category: "supplement", price: 1438, desc: "Potent male vitality and energy formula designed to stimulate vigor, endurance, and muscle tone." },
+            { id: 15, name: "DXN Potenzhi 90's", category: "supplement", price: 3983, desc: "Maximum-potency natural performance compound for sustained stamina, strength, and vitality." },
+            { id: 16, name: "DXN Spirulina Capsule 30's", category: "supplement", price: 488, desc: "Nutrient-dense alkaline microalgae packed with complete green proteins and everyday vitamins." },
+            { id: 17, name: "DXN Spirulina Capsule 90's", category: "supplement", price: 1383, desc: "Rich source of essential antioxidants, plant chlorophyll, and complete biological minerals." },
+            { id: 18, name: "DXN Spirulina Tablet 120's", category: "supplement", price: 1298, desc: "Superfood tablets ensuring reliable cellular energy, vitality, and strong immunity shields." },
+            { id: 19, name: "DXN Spirulina Tablet 120's x 3", category: "supplement", price: 3628, desc: "Value family bundle providing steady, comprehensive nutritional support for everyone." },
+            { id: 20, name: "DXN Spirulina Tablet 300's", category: "supplement", price: 3163, desc: "Extended daily supply of organic microalgae optimizing baseline cellular nourishment." },
+            { id: 21, name: "DXN Spirulina Tablet 500's", category: "supplement", price: 4633, desc: "Bulk economy supply containing premium plant proteins, perfect for long-term health." },
+            { id: 22, name: "Ganocelium (GL) 30's", category: "supplement", price: 778, desc: "Harvested from 18-day old Mycelium to effectively oxygenate cells and improve body balance." },
+            { id: 23, name: "Ganocelium (GL) 90's", category: "supplement", price: 1913, desc: "Supplies a rich concentration of organic germanium and polysaccharides to restore tissues." },
+            { id: 24, name: "Ganocelium (GL) 360's", category: "supplement", price: 7268, desc: "Ultimate cellular oxygenation supply for full-body nervous system and tissue defense." },
+            { id: 25, name: "Reishi Gano (RG) 30's", category: "supplement", price: 778, desc: "90-day aged red mushroom extract acting as a powerful systemic natural body detoxifier." },
+            { id: 26, name: "Reishi Gano (RG) 90's", category: "supplement", price: 1913, desc: "Formulated to target built-up toxins, enhance blood circulation, and balance body systems." },
+            { id: 27, name: "Reishi Gano (RG) 360's", category: "supplement", price: 7268, desc: "Complete daily cellular purification and longevity macro-pack for long-term protection." },
+            { id: 28, name: "Reishi Mushroom Powder 22g", category: "supplement", price: 1273, desc: "Soluble pure Ganoderma Lucidum powder promoting rapid body absorption and fast action." },
+            { id: 29, name: "Reishi Mushroom Powder 70g", category: "supplement", price: 3873, desc: "Large format soluble red mushroom blend built for daily immune defenses and deep cleansing." },
+            { id: 30, name: "DXN Poria Mushroom S Capsule 30's", category: "supplement", price: 563, desc: "Traditional mushroom compound targeting internal fluid regulation, sleep quality, and calm." },
+            { id: 31, name: "DXN Poria Mushroom 5 Capsule 90's", category: "supplement", price: 1563, desc: "Sustained dosage support optimizing cognitive function, memory pathways, and tissue health." },
+            { id: 32, name: "DXN Ros L Powder", category: "supplement", price: 758, desc: "Soluble premium Roselle extract providing intense botanical vitamin C and antioxidant values." },
+            { id: 33, name: "DXN Roselle Tablet 120's", category: "supplement", price: 1013, desc: "Chewable bioflavonoid fruit tablets assisting urinary tract cooling and overall skin health." },
+            { id: 34, name: "DXN Roselle Tablet 120's x 3", category: "supplement", price: 2763, desc: "Triple family economy pack providing natural immune support against seasonal shifts." },
+            { id: 35, name: "DXN Mengkudu Capsule 30's", category: "supplement", price: 598, desc: "Pure high-grade Morinda Citrifolia (Noni) extract supporting joint comfort and respiratory systems." },
+            { id: 36, name: "DXN Mengkudu Capsule 90's", category: "supplement", price: 1658, desc: "Sustained formula for digestive comfort, enzyme delivery, and joint defense wellness." },
+            { id: 37, name: "DXN Wild Betel Pill", category: "supplement", price: 658, desc: "Traditional natural remedy optimized to cleanse internal channels and eliminate bad breath." },
+            { id: 38, name: "DXN Garcinia 30 capsule", category: "supplement", price: 478, desc: "Infused with active Hydroxycitric Acid to aid healthy appetite and body fat metabolism." },
+            { id: 39, name: "DXN Scelium Capsule 30s", category: "supplement", price: 503, desc: "Specially selected botanical compound supporting overall stamina and energy recovery." },
+
+            // Food & Beverage
+            { id: 40, name: "DXN Cocozhi 10x32g", category: "beverage", price: 683, desc: "Premium malt cocoa beverage enriched with Ganoderma mushroom for growing minds and bodies." },
+            { id: 41, name: "DXN Cocozhi 20x32g", category: "beverage", price: 1123, desc: "Large family pack of nutrient-packed chocolate drink mix providing instant energy." },
+            { id: 42, name: "DXN Cordyceps Coffee 3 in 1", category: "beverage", price: 823, desc: "Gourmet coffee bean blend infused with Cordyceps to boost energy and lung capacity." },
+            { id: 43, name: "DXN Lemonzhi", category: "beverage", price: 593, desc: "Refreshing healthy lemon tea premix infused with body-cleansing Ganoderma extract." },
+            { id: 44, name: "DXN Cordypine 285ml", category: "beverage", price: 2373, desc: "Potent mixture of naturally fermented pineapple juice and biological Cordyceps mushroom." },
+            { id: 45, name: "DXN Lignopine 285ml", category: "beverage", price: 2373, desc: "Functional enzyme drink combining rare Tiger Milk Mushroom with active pineapple juices." },
+            { id: 46, name: "DXN JUJUBE Fruits 300g", category: "beverage", price: 658, desc: "Premium dried red dates serving as an excellent natural source of iron and trace nutrients." },
+            { id: 47, name: "DXN Lingzhi Black Coffee", category: "beverage", price: 878, desc: "Premium sugar-free dark roast coffee infused with Ganoderma to clear daily toxins." },
+            { id: 48, name: "DXN Lingzhi Coffee 3 in 1 (21g)", category: "beverage", price: 838, desc: "The original wellness classic cream coffee blend containing vital Ganoderma extracts." },
+            { id: 49, name: "DXN Lingzhi Coffee 3 in 1 (12g)", category: "beverage", price: 243, desc: "Compact traveler-sized 3-in-1 coffee stick pack set for instant workflow focus." },
+            { id: 50, name: "DXN Lingzhi Coffee 3 in 1 (10.5g)", category: "beverage", price: 433, desc: "Balanced individual dosage format providing stable metabolic energy and morning focus." },
+            { id: 51, name: "DXN Lingzhi Coffee 3 in 1 Classic 20s", category: "beverage", price: 713, desc: "Smooth vintage coffee bean profile infused with active premium reishi extracts." },
+            { id: 52, name: "DXN Lingzhi Coffee 3 in 1 Classic 10s", category: "beverage", price: 388, desc: "Convenient mid-sized pack containing rich, smooth traditional Ganoderma coffee." },
+            { id: 53, name: "DXN Lingzhi Coffee 2 in 1 Plus", category: "beverage", price: 913, desc: "Premium roasted sugar-free black coffee complete with smooth non-dairy healthy creamer." },
+            { id: 54, name: "DXN Lingzhi Tea Latte Mix", category: "beverage", price: 900, desc: "Creamy aromatic black tea foliage masterfully combined with health-giving Ganoderma." },
+            { id: 55, name: "DXN White Coffee Zhino", category: "beverage", price: 873, desc: "Rich cappuccino-style frothy coffee blend offering deep aroma and digestive properties." },
+            { id: 56, name: "DXN Lion's Mane Coffee (CUP)", category: "beverage", price: 93, desc: "Single-serve portable cup targeting enhanced brain power, alertness, and memory tracking." },
+            { id: 57, name: "DXN Lion's Mane Coffee Bag", category: "beverage", price: 865, desc: "Gourmet coffee pre-blended with organic Hericium powder for active daily mental focus." },
+            { id: 58, name: "DXN Lion's Mane Oocha", category: "beverage", price: 1028, desc: "Nutritious powdered green tea mixture loaded with active brain-boosting elements." },
+            { id: 59, name: "DXN Oocha", category: "beverage", price: 968, desc: "Exquisite Japanese style Oolong tea powder base layered with wellness boosters." },
+            { id: 60, name: "DXN Zhi Tea", category: "beverage", price: 1033, desc: "Aromatic healthy black tea leaves carefully mixed with therapeutic Ganoderma extract." },
+            { id: 61, name: "DXN Oozhi Tea 100g", category: "beverage", price: 968, desc: "Bulk package containing authentic loose tea leaves carrying intense polyphenols." },
+            { id: 62, name: "DXN Oozhi Tea 30sachet", category: "beverage", price: 433, desc: "Pre-measured standard tea bags formulated for deep body thermal and liver clearing." },
+            { id: 63, name: "DXN Oozhi Tea 30g", category: "beverage", price: 358, desc: "Introductory-sized aromatic leaf tea pack ideal for testing daily flavor notes." },
+            { id: 64, name: "DXN Morinzhi Juice 285ml", category: "beverage", price: 1103, desc: "Enriched fresh Morinda Citrifolia Noni juice promoting supreme nutritional cellular uptake." },
+            { id: 65, name: "DXN Morinzhi Juice 700ml", category: "beverage", price: 2273, desc: "Max-size premium Noni juice bottle to restore long-term metabolic and circulatory health." },
+            { id: 66, name: "DXN Morinzyme", category: "beverage", price: 1153, desc: "Botanical fermented Noni concentrate providing high concentrations of active digestive enzymes." },
+            { id: 67, name: "Nutrizhi", category: "beverage", price: 2168, desc: "Mixed soy and malt cereal drink providing massive clean daily dietary plant vitamins." },
+            { id: 68, name: "DXN Spica Tea 5sachet", category: "beverage", price: 213, desc: "Five quick travel packs engineered to assist standard body liver thermal cooling." },
+            { id: 69, name: "DXN Spica Tea 20sachet", category: "beverage", price: 803, desc: "Formulated blend of Spica Prunellae and Ganoderma for constant wellness hydration." },
+            { id: 70, name: "DXN Roselle Juice 285ml", category: "beverage", price: 763, desc: "Natural sweet calyx extract drink packed with natural bio-available vitamin C." },
+            { id: 71, name: "DXN Roselle Juice Family Pack", category: "beverage", price: 1933, desc: "Triple value combination bottle pack ensuring regular vitamin defenses." },
+            { id: 72, name: "DXN OOCHA Noodle", category: "beverage", price: 393, desc: "Healthy alkaline instant noodles derived from organic green tea crop mixtures." },
+            { id: 73, name: "DXN Spirudle (Tom Yam Flavor)", category: "beverage", price: 463, desc: "Nutritious instant spirulina wheat noodles seasoned with tangy Tom Yam spice." },
+            { id: 74, name: "DXN Spirudle (Plain Flavor)", category: "beverage", price: 393, desc: "Clean base spirulina-infused noodles completely free from chemical synthetics." },
+            { id: 75, name: "DXN Spirulina Cereal 30sachet", category: "beverage", price: 1983, desc: "High-fiber quick morning instant cereal loaded with rich spirulina food groups." },
+            { id: 76, name: "DXN VCO-L 285ml", category: "beverage", price: 1238, desc: "Premium Virgin Coconut Oil liquid fortified directly with active wild Ganoderma." },
+            { id: 77, name: "Zhi Mint 3sachet", category: "beverage", price: 418, desc: "Ganoderma throat lozenges giving instant soothing properties and cold relief." },
+            { id: 78, name: "DXN Zhi Mint 25g x 3 Box", category: "beverage", price: 3293, desc: "Bulk counter box containing therapeutic herbal mint breath refreshers." },
+            { id: 79, name: "Zhi Mint 2 ziplock x 10 candies", category: "beverage", price: 133, desc: "Pocket-friendly ziplock candy sets to continuously settle irritating throat dry coughs." },
+            { id: 80, name: "DXN Zhi Mocha", category: "beverage", price: 1058, desc: "Indulgent coffee blend offering bold espresso notes fused with dark cocoa reishi." },
+            { id: 81, name: "DXN Zhi Café Classic", category: "beverage", price: 848, desc: "Roasted herbal coffee filter bags preserving raw antioxidant nutrients." },
+            { id: 82, name: "DXN Moricinia 285ml", category: "beverage", price: 1103, desc: "Specialty premium Noni juice blend optimized to assist internal vital systems." },
+            { id: 83, name: "DXN Moricinia 700ml", category: "beverage", price: 2273, desc: "Large economy formula volume for long term restorative vascular health maintenance." },
+            { id: 84, name: "DXN VINAIGRETE HONEY 700ml", category: "beverage", price: 3368, desc: "Fermented rice vinegar and raw honey targeting deep gastrointestinal base balance." },
+            { id: 85, name: "DXN VINAIGRETE HONEY 285ml", category: "beverage", price: 1483, desc: "Compact layout table sizing for daily body alkalinity regulation drops." },
+            { id: 86, name: "DXN Apple Juice Drink", category: "beverage", price: 1723, desc: "Pure sweet apple juice base containing active mushroom extracts." },
+            { id: 87, name: "DXN Neph-V", category: "beverage", price: 1333, desc: "Functional herbal juice blend designed to protect the urinary tract and kidneys." },
+            { id: 88, name: "DXN Himalayan Salt", category: "beverage", price: 403, desc: "Pure organic mineral salt crystals harvested free from modern marine microplastics." },
+            { id: 89, name: "DXN Apple Fermented Jam", category: "beverage", price: 508, desc: "Probiotic-rich active fruit spread promoting clean digestive microbiome setups." },
+            { id: 90, name: "DXN Cin-G 60g", category: "beverage", price: 1283, desc: "Premium ground botanical cinnamon powder optimizing blood glucose controls." },
+            { id: 91, name: "DXN Cinnamon Herbs Bag", category: "beverage", price: 3088, desc: "Bulk wholesale pack of metabolic warming cinnamon infusion herbal blends." },
+            { id: 92, name: "Spirunanas/Pineapple Cake", category: "beverage", price: 1223, desc: "Delicious wellness pastry combining real sweet pineapple core with spirulina." },
+            { id: 93, name: "DXN Multipurpose", category: "beverage", price: 885, desc: "Concentrated dietary nutritional food blending vehicle for everyday family kitchen use." },
+
+            // Personal Care
+            { id: 94, name: "Gano Massage Oil", category: "personal", price: 568, desc: "All-natural palm oil base infused with therapeutic Ganoderma. Great for muscle relief." },
+            { id: 95, name: "DXN Ganozhi Body Foam 250ml", category: "personal", price: 608, desc: "Mushroom-rich skin conditioning body wash that deeply cleanses without drying." },
+            { id: 96, name: "DXN Ganozhi Body Foam 100ml", category: "personal", price: 298, desc: "Travel-friendly skin balance body wash perfect for maintaining soft skin on the go." },
+            { id: 97, name: "DXN Ganozhi Body Foam 8ml", category: "personal", price: 238, desc: "Single-use trial sachet sheets targeting quick gym use or active hotel stays." },
+            { id: 98, name: "DXN Ganozhi Plus Body Foam", category: "personal", price: 688, desc: "Enhanced skin-protectant conditioning formula enriched with active Vitamin E blocks." },
+            { id: 99, name: "DXN Ganozhi Shampoo 250ml", category: "personal", price: 608, desc: "pH-balanced hair wash utilizing Ganoderma to revitalize hair cuticles and roots." },
+            { id: 100, name: "DXN Ganozhi Shampoo 100ml", category: "personal", price: 298, desc: "Mid-sized hair cleansing volume ideal for flight luggage allocations." },
+            { id: 101, name: "DXN Ganozhi Shampoo 8ml", category: "personal", price: 263, desc: "Individual sample packets protecting hair structure via mushroom extracts." },
+            { id: 102, name: "DXN Ganozhi Plus Shampoo", category: "personal", price: 693, desc: "Advanced formula variant boosted with hair follicle conditioning growth links." },
+            { id: 103, name: "DXN Ganozhi Soap", category: "personal", price: 223, desc: "Pure Ganoderma extract skin bar optimizing natural dermis radiance values." },
+            { id: 104, name: "DXN Trans Soap", category: "personal", price: 803, desc: "Transparent premium glycerin soap base engineered for highly sensitive facial skins." },
+            { id: 105, name: "Ganozhi Toothpaste 150g", category: "personal", price: 413, desc: "Fluoride-free formula packed with nutrition-grade Ganoderma for excellent gum protection." },
+            { id: 106, name: "DXN Ganozhi Toothpaste 75g", category: "personal", price: 248, desc: "Compact oral protection paste defending against mouth ulcers and bleeding." },
+            { id: 107, name: "DXN ZHICARE", category: "personal", price: 393, desc: "Specialty health protective personal care lotion protecting dry skin sections." },
+            { id: 108, name: "DXN Ganozhi Plus Toothpaste", category: "personal", price: 433, desc: "Upgraded oral cleansing mint formula targeting maximum plaque prevention." },
+            { id: 109, name: "DXN Toothbrush", category: "personal", price: 128, desc: "Ultra soft micro bristles engineered to sweep debris safely without scratching gums." },
+            { id: 110, name: "DXN Talcum Powder", category: "personal", price: 373, desc: "Cooling soothing body powder containing premium ganoderma skin protectants." },
+            { id: 111, name: "DXN Tea Infuser", category: "personal", price: 838, desc: "Stainless steel food-grade filtering accessory built for pure botanical steeping." },
+
+            // Skin Care & Cosmetic
+            { id: 112, name: "DXN Aloe V Aqua Gel 50ml", category: "skincare", price: 823, desc: "Lightweight daytime moisturizing gel that locks in skin hydration without a greasy feel." },
+            { id: 113, name: "DXN Aloe V Cleansing Gel 100ml", category: "skincare", price: 505, desc: "Gentle soap-free facial wash that safely lifts impurities from deep within pores." },
+            { id: 114, name: "DXN Aloe V Facial Scrub", category: "skincare", price: 470, desc: "Micro-exfoliating botanical particles stripping away dead surface facial tissues." },
+            { id: 115, name: "DXN Aloe V Hand & Body Lotion", category: "skincare", price: 575, desc: "Intense moisture repair cream keeping arm and leg skin sections smooth." },
+            { id: 116, name: "DXN Aloe V Hydrating Mask", category: "skincare", price: 610, desc: "Deep tissue overnight hydration treatment resetting stressed damaged face lines." },
+            { id: 117, name: "DXN Aloe V Hydrating Toner 100ml", category: "skincare", price: 545, desc: "Balances skin natural acid mantles while minimizing dilated facial skin pores." },
+            { id: 118, name: "DXN Aloe V Nutricare Cream 30ml", category: "skincare", price: 650, desc: "Rich night-time vital nutrient replenishment block restoring elasticity." },
+            { id: 119, name: "DXN Chubby Baby Oil 200ml", category: "skincare", price: 610, desc: "Pure non-allergenic moisturizing liquid sealing skin shields on sensitive skin." },
+            { id: 120, name: "Ganozhi Lipstick-Pearly Pink", category: "skincare", price: 593, desc: "Enriched with Ganoderma and Aloe Vera to hydrate lips with a soft pink gloss." },
+            { id: 121, name: "Ganozhi Lipstick-Pearly Red", category: "skincare", price: 593, desc: "Striking bold pearlescent crimson color matrix delivering long lasting cellular moisture." },
+            { id: 122, name: "Ganozhi Lipstick-Coco Red", category: "skincare", price: 593, desc: "Warm deep cocoa undertone red cosmetic layer avoiding lip chapping lines." },
+            { id: 123, name: "Ganozhi Lipstick-Pearly Grape", category: "skincare", price: 593, desc: "Deep vibrant purple berry sheen providing rich nourishment all day." },
+            { id: 124, name: "Ganozhi Lipstick-Coral Pink", category: "skincare", price: 593, desc: "Fresh natural looking bright coral blend that keeps lips naturally soft." },
+            { id: 125, name: "Ganozhi E Deep Cleansing Cream", category: "skincare", price: 1558, desc: "Enriched with Vitamin E and Ganoderma to lift waterproof makeup safely." },
+            { id: 126, name: "Ganozhi E Hydrasoft Toner", category: "skincare", price: 1643, desc: "Aqua fluid providing deep cellular conditioning before face moisturizing steps." },
+            { id: 127, name: "Ganozhi E Nourishing Night Cream", category: "skincare", price: 2468, desc: "Advanced night cream restoring skin elasticity and erasing fine wrinkles." },
+            { id: 128, name: "Ganozhi E UV Defense Day Cream", category: "skincare", price: 2333, desc: "Blocks damaging environmental solar rays while feeding vital cellular nutrients." },
+
+            // Household Product Series
+            { id: 129, name: "DXN Vegi Cleen 250ml", category: "household", price: 488, desc: "All-natural rinsing wash that removes pesticides, dirt, and farm waxes from produce." },
+            { id: 130, name: "Dish Cleen 1liter", category: "household", price: 533, desc: "Highly concentrated grease-cutting liquid dish soap derived from gentle plants." },
+            { id: 131, name: "GT-6 Wash 'N' Shine 1liter", category: "household", price: 583, desc: "Premium vehicular wash solution stripping road grime while sealing paint coatings." },
+            { id: 132, name: "Dyna Cleen 1kg", category: "household", price: 548, desc: "Highly concentrated bio-degradable laundry powder removing stubborn fabric stains." },
+            { id: 133, name: "Pine Cleen 1liter", category: "household", price: 553, desc: "Disinfectant floor cleaner introducing continuous natural anti-bacterial barriers." }
+        ];
+
+        let cart = {};
+        let comboQty = 0;
+        let currentCategory = 'all';
+
+        function renderProducts() {
+            const listContainer = document.getElementById('productList');
+            listContainer.innerHTML = '';
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            const catMap = {
+                'supplement': 'Health Food Supplements',
+                'beverage': 'Food & Beverages',
+                'personal': 'Personal Care Products',
+                'skincare': 'Skin Care & Cosmetics',
+                'household': 'Household Product Series'
+            };
+
+            let activeCategories = currentCategory === 'all' ? Object.keys(catMap) : [currentCategory];
+            let totalRendered = 0;
+
+            activeCategories.forEach(cat => {
+                const filtered = products.filter(p => p.category === cat && p.name.toLowerCase().includes(searchTerm));
+                
+                if (filtered.length > 0) {
+                    totalRendered += filtered.length;
+                    
+                    const catHeader = document.createElement('div');
+                    catHeader.className = 'category-title';
+                    catHeader.innerText = catMap[cat];
+                    listContainer.appendChild(catHeader);
+
+                    filtered.forEach(product => {
+                        const qty = cart[product.id] || 0;
+                        const card = document.createElement('div');
+                        card.className = 'product-card';
+                        card.innerHTML = `
+                            <div class="product-details">
+                                <div class="product-title">${product.name}</div>
+                                <div class="product-desc">${product.desc}</div>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span class="product-price">₱${product.price.toLocaleString()}.00</span>
+                                    <div class="qty-controls">
+                                        <button class="qty-btn" type="button" onclick="updateQty(${product.id}, -1)">-</button>
+                                        <div class="qty-val" id="qty-${product.id}">${qty}</div>
+                                        <button class="qty-btn" type="button" onclick="updateQty(${product.id}, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        listContainer.appendChild(card);
+                    });
+                }
+            });
+
+            if (totalRendered === 0) {
+                listContainer.innerHTML = `<div class="no-results">No matches found for "${searchTerm}"</div>`;
+            }
+        }
+
+        function updateQty(id, change) {
+            if (!cart[id]) cart[id] = 0;
+            cart[id] += change;
+            if (cart[id] <= 0) delete cart[id];
+            
+            // Sync with regular list view elements
+            const el = document.getElementById(`qty-${id}`);
+            if(el) el.innerText = cart[id] || 0;
+
+            // Sync with premium grids if present
+            const featEl = document.getElementById(`feat-qty-${id}`);
+            if(featEl) featEl.innerText = cart[id] || 0;
+
+            updateCartBar();
+        }
+
+        function updateComboQty(change) {
+            comboQty += change;
+            if (comboQty < 0) comboQty = 0;
+            document.getElementById('combo-qty-val').innerText = comboQty;
+            updateCartBar();
+        }
+
+        function updateCartBar() {
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            for (const id in cart) {
+                const prod = products.find(p => p.id == id);
+                if (prod) {
+                    totalItems += cart[id];
+                    totalPrice += prod.price * cart[id];
+                }
+            }
+
+            // Factor in RG GL Combined Combo item count (counts as 2 separate items for allocation)
+            if (comboQty > 0) {
+                totalItems += (comboQty * 2);
+                totalPrice += (comboQty * 3826);
+            }
+
+            document.getElementById('cartCount').innerText = `${totalItems} ${totalItems === 1 ? 'item' : 'items'} selected`;
+            document.getElementById('cartTotal').innerText = `₱${totalPrice.toLocaleString()}.00`;
+        }
+
+        function switchCategory(cat) {
+            currentCategory = cat;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts();
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function togglePaymentQR() {
+            const val = document.getElementById('paymentMethod').value;
+            document.getElementById('gcashQR').style.display = (val === 'GCash') ? 'block' : 'none';
+            document.getElementById('mayaQR').style.display = (val === 'Maya') ? 'block' : 'none';
+        }
+
+        function openOrderModal() {
+            if (Object.keys(cart).length === 0 && comboQty === 0) {
+                alert("Your cart is empty! Choose wellness products before checking out.");
+                return;
+            }
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function handleOrderSubmit(event) {
+            event.preventDefault();
+
+            let itemSummary = "";
+            let grandTotal = 0;
+
+            for (const id in cart) {
+                const prod = products.find(p => p.id == id);
+                const subtotal = prod.price * cart[id];
+                itemSummary += `• ${prod.name} (Qty: ${cart[id]}) - Subtotal: ₱${subtotal.toLocaleString()}.00\n`;
+                grandTotal += subtotal;
+            }
+
+            if (comboQty > 0) {
+                const comboSub = 3826 * comboQty;
+                itemSummary += `• [FEATURED] DXN RG GL 90's Set (Qty: ${comboQty}) - Subtotal: ₱${comboSub.toLocaleString()}.00\n`;
+                grandTotal += comboSub;
+            }
+
+            document.getElementById('hiddenOrderDetails').value = itemSummary;
+            document.getElementById('hiddenGrandTotal').value = `₱${grandTotal.toLocaleString()}.00`;
+
+            const form = event.target;
+            const data = new FormData(form);
+            
+            // UI Loading Configuration Setup
+            const submitBtn = form.querySelector('.submit-order-btn');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Processing Securely...";
+            submitBtn.disabled = true;
+
+            // Wait for network confirmation before UI transitions
+            fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    closeOrderModal();
+                    document.getElementById('thankYouScreen').style.display = 'flex';
+                    
+                    // Reset States smoothly
+                    cart = {};
+                    comboQty = 0;
+                    document.getElementById('combo-qty-val').innerText = 0;
+                    updateCartBar();
+                    renderProducts();
+                    form.reset();
+                    togglePaymentQR();
+                } else {
+                    alert("Submission configuration error. Please make sure Web3Forms key is fully verified.");
+                }
+            })
+            .catch(error => {
+                console.error("Network Error:", error);
+                alert("Connection failed. Please check internet access and try again.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        }
+
+        function closeThankYouScreen() {
+            document.getElementById('thankYouScreen').style.display = 'none';
+        }
+
+        function household() {
+            switchCategory('household');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
